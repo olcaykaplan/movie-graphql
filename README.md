@@ -10,5 +10,3 @@ TypeScript
 Styled Component
 
 ## Description
-44:29
-https://youtu.be/M_Oes39FNuk?t=2669
