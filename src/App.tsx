@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
 import HomePage from "./app/containers/Homepage";
-import { Routes, Route, useParams } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import AnimeDetailPage from "./app/containers/AnimeDetailPage";
 
 function App() {
   return (
@@ -15,12 +15,3 @@ function App() {
 
 export default App;
 
-const AnimeDetailPage = () => {
-  let {id} = useParams();
-  useEffect(() => {
-    // getAnime by id and after take details set data
-  }, [])
-  return (
-    <h1>{id}</h1>
-  )
-}

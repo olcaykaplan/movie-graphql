@@ -26,12 +26,10 @@ const HomePage = (props: IHomePageProps) => {
     const animePage = await animeService.getAnimePage(0, 200).catch((err) => {
       console.log("Error: ", err);
     });
-    console.log("Anime page: ", animePage);
     if (animePage) setAnimePage(animePage);
   };
   useEffect(() => {
     fetchAnimePage();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

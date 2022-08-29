@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
 import styled from "styled-components";
 import { useAppSelector } from "../../hooks";
-import { makeSelectAnimePage } from "./selectors";
+import { makeSelectAnimePage } from "../selectors";
 import { Link } from "react-router-dom";
 
 const HotAnimeContainer = styled.div`
@@ -58,8 +58,8 @@ export function HotAnime() {
     <HotAnimeContainer>
       {animePage &&
         animePage.media &&
-        animePage.media.map((anime) => (
-          <AnimeItemContainer>
+        animePage.media.map((anime, i) => (
+          <AnimeItemContainer key={i}>
             <AnimeCover>
               <Link to={`/anime/${anime?.id}`} >
                 <img
@@ -71,8 +71,8 @@ export function HotAnime() {
             <AnimeTitle>
               {anime?.title?.english}
               <AnimeAverage>
-                (<strong>{anime?.averageScore}</strong>
-                <span style={{ color: "black" }}>/100</span>)
+                (<strong>{(anime?.averageScore || 0) / 10}</strong>
+                <span style={{ color: "black" }}>/{100 / 10}</span>)
               </AnimeAverage>
             </AnimeTitle>
           </AnimeItemContainer>

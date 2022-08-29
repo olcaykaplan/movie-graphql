@@ -1,5 +1,7 @@
-import { IHomePageState } from "./containers/Homepage/types";
-
+import { IHomePageState, IAnimeDetailState } from "./containers/types";
 export interface IRootState {
-    homePage: IHomePageState;
+  homePage: IHomePageState;
+}
+export interface IAnimeState {
+  animeDetailPage: IAnimeDetailState;
 }
