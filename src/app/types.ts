@@ -3,5 +3,5 @@ export interface IRootState {
   homePage: IHomePageState;
 }
 export interface IAnimeState {
-  animeDetailPage: IAnimeDetailState;
+  animePage: IAnimeDetailState;
 }

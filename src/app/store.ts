@@ -1,10 +1,12 @@
 import { configureStore, ThunkAction, Action  } from '@reduxjs/toolkit';
 import homePageReducer from './containers/Homepage/homePage.slice';
+import animeDetailPageReducer from './containers/AnimeDetailPage/animeDetailPage.slice';
 import ReduxLogger from "redux-logger";
 
 export const store = configureStore({
   reducer: {
-    homePage: homePageReducer
+    homePage: homePageReducer,
+    animePage: animeDetailPageReducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(ReduxLogger)
 });

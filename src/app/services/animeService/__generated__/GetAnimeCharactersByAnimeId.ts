@@ -15,6 +15,46 @@ export interface GetAnimeCharactersByAnimeId_Media_title {
   english: string | null;
 }
 
+export interface GetAnimeCharactersByAnimeId_Media_coverImage {
+  __typename: "MediaCoverImage";
+  /**
+   * The cover image url of the media at a large size
+   */
+  large: string | null;
+}
+
+export interface GetAnimeCharactersByAnimeId_Media_startDate {
+  __typename: "FuzzyDate";
+  /**
+   * Numeric Year (2017)
+   */
+  year: number | null;
+  /**
+   * Numeric Month (3)
+   */
+  month: number | null;
+  /**
+   * Numeric Day (24)
+   */
+  day: number | null;
+}
+
+export interface GetAnimeCharactersByAnimeId_Media_endDate {
+  __typename: "FuzzyDate";
+  /**
+   * Numeric Year (2017)
+   */
+  year: number | null;
+  /**
+   * Numeric Month (3)
+   */
+  month: number | null;
+  /**
+   * Numeric Day (24)
+   */
+  day: number | null;
+}
+
 export interface GetAnimeCharactersByAnimeId_Media_relations_edges_node_title {
   __typename: "MediaTitle";
   /**
@@ -126,9 +166,37 @@ export interface GetAnimeCharactersByAnimeId_Media {
    */
   title: GetAnimeCharactersByAnimeId_Media_title | null;
   /**
+   * The cover images of the media
+   */
+  coverImage: GetAnimeCharactersByAnimeId_Media_coverImage | null;
+  /**
    * The banner image of the media
    */
   bannerImage: string | null;
+  /**
+   * Short description of the media's story and characters
+   */
+  description: string | null;
+  /**
+   * The genres of the media
+   */
+  genres: (string | null)[] | null;
+  /**
+   * A weighted average score of all the user's scores of the media
+   */
+  averageScore: number | null;
+  /**
+   * The amount of episodes the anime has when complete
+   */
+  episodes: number | null;
+  /**
+   * The first official release date of the media
+   */
+  startDate: GetAnimeCharactersByAnimeId_Media_startDate | null;
+  /**
+   * The last official release date of the media
+   */
+  endDate: GetAnimeCharactersByAnimeId_Media_endDate | null;
   /**
    * Other media in the same or connecting franchise
    */

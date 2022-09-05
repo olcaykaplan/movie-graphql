@@ -22,6 +22,7 @@ const actionDispatch = (dispatch: Dispatch) => ({
 });
 const HomePage = (props: IHomePageProps) => {
   const { setAnimePage } = actionDispatch(useAppDispatch());
+  
   const fetchAnimePage = async () => {
     const animePage = await animeService.getAnimePage(0, 200).catch((err) => {
       console.log("Error: ", err);
