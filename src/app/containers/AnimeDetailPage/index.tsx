@@ -91,7 +91,6 @@ const TabLink = styled.button`
 const TabContent = styled.div`
   margin-top: 30px;
   padding: 40px;
-  background-color: yellow;
 `;
 const Genre = styled.span`
   padding: 4px;
@@ -100,6 +99,9 @@ const Genre = styled.span`
   border-radius: 3px;
   color: #fafafa;
 `;
+
+const CharacterCardImage = styled.div``;
+
 const AnimeDetailPage = () => {
   const [selectedTab, setSelectedTab] = useState("details");
   const { setAnimeDetail } = actionDispatch(useAppDispatch());
@@ -123,7 +125,43 @@ const AnimeDetailPage = () => {
   const showSelectedTab = () => {
     let content = (
       <TabContent>
-        <h1>Description...</h1>
+        {animePage?.trailer?.thumbnail && (
+          <iframe
+            width="560"
+            height="315"
+            src={`https://www.youtube.com/embed/${
+              animePage?.trailer?.thumbnail.split("/")[4]
+            }`}
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          ></iframe>
+        )}
+        <div style={{ margin: "10px" }}>
+          Genres:
+          {animePage?.genres?.map((genre) => (
+            <Genre>{genre}</Genre>
+          ))}
+        </div>
+        <div style={{ margin: "10px" }}>Episodes : {animePage?.episodes}</div>
+        <div style={{ margin: "10px" }}>
+          Relations :
+          {animePage?.relations?.edges?.map(
+            (edge) =>
+              edge?.node?.title?.english && (
+                <span
+                  style={{
+                    padding: "5px",
+                    margin: "5px",
+                    display: "inline-block",
+                    border: "1px solid grey",
+                    borderRadius: "4px",
+                  }}
+                >
+                  {edge?.node?.title?.english}
+                </span>
+              )
+          )}
+        </div>
       </TabContent>
     );
 
@@ -167,14 +205,14 @@ const AnimeDetailPage = () => {
           <TabLink onClick={() => setSelectedTab("episodes")}>Episodes</TabLink>
         </div>
         <TabContent>
-          Genres:
-          {animePage?.genres?.map((genre) => (
-            <Genre>{genre}</Genre>
+          {animePage?.characters?.edges?.map((character) => (
+            <div>
+              {character?.node?.age}
+              {character?.node?.image?.large}
+              {character?.node?.name?.first}
+              {character?.node?.name?.last}
+            </div>
           ))}
-          Episodes : {animePage?.episodes}
-          {animePage?.relations?.edges?.map((edge) => 
-            <div>{edge?.node?.title?.english}</div>
-          )}
         </TabContent>
         {/* {showSelectedTab()} */}
       </Container>
