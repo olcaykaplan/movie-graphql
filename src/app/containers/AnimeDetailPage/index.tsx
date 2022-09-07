@@ -26,7 +26,8 @@ type IProps = {
 };
 const Wrapper = styled.div`
   width: 100vw;
-  height: 100px;
+  height: 100vh;
+  background-color: #fafafa;
 `;
 const Banner = styled.div<IProps>`
   width: 100vw;
@@ -36,23 +37,28 @@ const Banner = styled.div<IProps>`
   background-size: cover;
 `;
 const Container = styled.div`
-  height: 100vh;
+  height: 100%;
   padding-left: 15%;
   padding-right: 15%;
-  background: #fafafa;
-  position: relative;
 `;
 const Header = styled.div`
-  display: flex;
   margin-top: 10px;
+  width: 100%;
+  min-height: 300px;
 `;
 const AnimeCard = styled.div`
+  float: left;
+  width: 200px;
+  height: 290px;
   text-align: center;
   background-color: #2d2d2d;
+  margin-right: 20px;
+  margin-bottom: 4px;
 `;
-const AnimeCardImage = styled.div<IProps>`
+const AnimeCardImage = styled.img<IProps>`
   background: url(${(props) => props.image});
   width: 200px;
+  min-width: 200px;
   height: 260px;
 `;
 const AnimeAverage = styled.span`
@@ -62,8 +68,8 @@ const AnimeAverage = styled.span`
 `;
 
 const AnimeDesc = styled.div`
+  text-align: justify;
   font-size: 16px;
-  max-width: 900px;
   padding: 50px 20px;
   color: #565656;
 `;
@@ -72,6 +78,10 @@ const AnimeTitle = styled.h1`
   font-weight: bold;
 `;
 
+const Tabs = styled.div`
+  width: 100%;
+  margin: 10px 0px;
+`;
 const TabLink = styled.button`
   background-color: #2d2d2d;
   color: white;
@@ -81,7 +91,6 @@ const TabLink = styled.button`
   cursor: pointer;
   padding: 14px 16px;
   font-size: 17px;
-  margin: 10px 0px;
   width: 33.3%;
   &:hover {
     background-color: #555;
@@ -90,7 +99,10 @@ const TabLink = styled.button`
 
 const TabContent = styled.div`
   margin-top: 30px;
-  padding: 40px;
+  padding: 40px 10px;
+  width: 100%;
+  height: 100%;
+  justify-content: space-around;
 `;
 const Genre = styled.span`
   padding: 4px;
@@ -100,7 +112,55 @@ const Genre = styled.span`
   color: #fafafa;
 `;
 
-const CharacterCardImage = styled.div``;
+const CharacterCard = styled.div`
+  float: left;
+  height: 160px;
+  background-color: white;
+  border: 0.5px solid lightgray;
+  border-radius: 7px 7px 7px 7px;
+  margin: 5px;
+  @media (min-width: 1551px) {
+    width: 30%;
+  }
+  @media (min-width: 1251px) and (max-width: 1550px) {
+    width: 40%;
+  }
+  @media (max-width: 1300px) {
+    width: 70%;
+  }
+  @media (max-width: 700px) {
+    width: 100%;
+  }
+  @media (max-width: 400px) {
+    margin: 5px 0;
+  }
+`;
+const CharacterCardImage = styled.div<IProps>`
+  float: left;
+  background: url(${(props) => props.image});
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 160px;
+  width: 140px;
+  border-radius: 7px 0 0 7px;
+  @media (max-width: 400px) {
+    width: 80px;
+  }
+`;
+const CharacterCardInfo = styled.div`
+  float: left;
+  padding-top: 10px;
+  padding-left: 10px;
+  border-radius: 0 7px 10px 7px;
+  @media (max-width: 400px) {
+    font-size: 14px;
+  }
+`;
+
+// .product-text {
+//   height: 300px;
+//   width: 327px;
+// }
 
 const AnimeDetailPage = () => {
   const [selectedTab, setSelectedTab] = useState("details");
@@ -197,27 +257,59 @@ const AnimeDetailPage = () => {
             {animePage?.description}
           </AnimeDesc>
         </Header>
-        <div>
+        <Tabs>
           <TabLink onClick={() => setSelectedTab("details")}>Details</TabLink>
           <TabLink onClick={() => setSelectedTab("characters")}>
             Characters
           </TabLink>
           <TabLink onClick={() => setSelectedTab("episodes")}>Episodes</TabLink>
-        </div>
+        </Tabs>
         <TabContent>
           {animePage?.characters?.edges?.map((character) => (
-            <div>
-              {character?.node?.age}
-              {character?.node?.image?.large}
-              {character?.node?.name?.first}
-              {character?.node?.name?.last}
-            </div>
+            <CharacterCard>
+              <CharacterCardImage image={character?.node?.image?.large || ""} />
+              <CharacterCardInfo>
+                <p>
+                  Name:{" "}
+                  {`${character?.node?.name?.first || ""} ${
+                    character?.node?.name?.last || ""
+                  }`}
+                </p>
+                <p>Age: {character?.node?.age || "Unkown"}</p>
+                <p>Gender: {character?.node?.gender || "Unkown"}</p>
+              </CharacterCardInfo>
+            </CharacterCard>
           ))}
         </TabContent>
-        {/* {showSelectedTab()} */}
       </Container>
     </Wrapper>
   );
 };
 
 export default AnimeDetailPage;
+
+{
+  /* <Container>
+<Header>
+  <AnimeCard>
+    <AnimeCardImage image={animePage?.coverImage?.large || ""} />
+   
+  </AnimeCard>
+  <AnimeDesc>
+    <AnimeTitle>{animePage?.title?.english}</AnimeTitle>
+    {animePage?.description}
+  </AnimeDesc>
+</Header>
+<div>
+  <TabLink onClick={() => setSelectedTab("details")}>Details</TabLink>
+  <TabLink onClick={() => setSelectedTab("characters")}>
+    Characters
+  </TabLink>
+  <TabLink onClick={() => setSelectedTab("episodes")}>Episodes</TabLink>
+</div>
+
+</Container> */
+}
+{
+  /* {showSelectedTab()} */
+}
