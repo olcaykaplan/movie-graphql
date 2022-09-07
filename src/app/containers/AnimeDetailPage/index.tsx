@@ -202,7 +202,7 @@ const AnimeDetailPage = () => {
             <Genre>{genre}</Genre>
           ))}
         </div>
-        <div style={{ margin: "10px" }}>Episodes : {animePage?.episodes}</div>
+        <div style={{ margin: "10px" }}>Total Number of Episodes  : {animePage?.episodes}</div>
         <div style={{ margin: "10px" }}>
           Relations :
           {animePage?.relations?.edges?.map(
@@ -228,7 +228,21 @@ const AnimeDetailPage = () => {
     if (selectedTab === "characters") {
       content = (
         <TabContent>
-          <h1>Characters</h1>
+          {animePage?.characters?.edges?.map((character) => (
+            <CharacterCard>
+              <CharacterCardImage image={character?.node?.image?.large || ""} />
+              <CharacterCardInfo>
+                <p>
+                  Name:{" "}
+                  {`${character?.node?.name?.first || ""} ${
+                    character?.node?.name?.last || ""
+                  }`}
+                </p>
+                <p>Age: {character?.node?.age || "Unkown"}</p>
+                <p>Gender: {character?.node?.gender || "Unkown"}</p>
+              </CharacterCardInfo>
+            </CharacterCard>
+          ))}
         </TabContent>
       );
     } else if (selectedTab === "episodes") {
@@ -264,52 +278,10 @@ const AnimeDetailPage = () => {
           </TabLink>
           <TabLink onClick={() => setSelectedTab("episodes")}>Episodes</TabLink>
         </Tabs>
-        <TabContent>
-          {animePage?.characters?.edges?.map((character) => (
-            <CharacterCard>
-              <CharacterCardImage image={character?.node?.image?.large || ""} />
-              <CharacterCardInfo>
-                <p>
-                  Name:{" "}
-                  {`${character?.node?.name?.first || ""} ${
-                    character?.node?.name?.last || ""
-                  }`}
-                </p>
-                <p>Age: {character?.node?.age || "Unkown"}</p>
-                <p>Gender: {character?.node?.gender || "Unkown"}</p>
-              </CharacterCardInfo>
-            </CharacterCard>
-          ))}
-        </TabContent>
+        {showSelectedTab()}
       </Container>
     </Wrapper>
   );
 };
 
 export default AnimeDetailPage;
-
-{
-  /* <Container>
-<Header>
-  <AnimeCard>
-    <AnimeCardImage image={animePage?.coverImage?.large || ""} />
-   
-  </AnimeCard>
-  <AnimeDesc>
-    <AnimeTitle>{animePage?.title?.english}</AnimeTitle>
-    {animePage?.description}
-  </AnimeDesc>
-</Header>
-<div>
-  <TabLink onClick={() => setSelectedTab("details")}>Details</TabLink>
-  <TabLink onClick={() => setSelectedTab("characters")}>
-    Characters
-  </TabLink>
-  <TabLink onClick={() => setSelectedTab("episodes")}>Episodes</TabLink>
-</div>
-
-</Container> */
-}
-{
-  /* {showSelectedTab()} */
-}
