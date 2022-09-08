@@ -27,7 +27,6 @@ type IProps = {
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: #fafafa;
 `;
 const Banner = styled.div<IProps>`
   width: 100vw;
@@ -95,14 +94,15 @@ const TabLink = styled.button`
   &:hover {
     background-color: #555;
   }
+  @media (max-width: 400px) {
+    font-size: 14px;
+  }
 `;
 
 const TabContent = styled.div`
   margin-top: 30px;
-  padding: 40px 10px;
   width: 100%;
   height: 100%;
-  justify-content: space-around;
 `;
 const Genre = styled.span`
   padding: 4px;
@@ -111,16 +111,10 @@ const Genre = styled.span`
   border-radius: 3px;
   color: #fafafa;
 `;
-
-const CharacterCard = styled.div`
-  float: left;
-  height: 160px;
-  background-color: white;
-  border: 0.5px solid lightgray;
-  border-radius: 7px 7px 7px 7px;
-  margin: 5px;
+const CharacterCardWrapper = styled.div`  
+float: left;
   @media (min-width: 1551px) {
-    width: 30%;
+    width: 33.3%;
   }
   @media (min-width: 1251px) and (max-width: 1550px) {
     width: 40%;
@@ -134,6 +128,13 @@ const CharacterCard = styled.div`
   @media (max-width: 400px) {
     margin: 5px 0;
   }
+`;
+const CharacterCard = styled.div`
+  height: 160px;
+  background-color: white;
+  border: 0.5px solid lightgray;
+  border-radius: 7px 7px 7px 7px;
+  margin: 10px;  
 `;
 const CharacterCardImage = styled.div<IProps>`
   float: left;
@@ -154,6 +155,7 @@ const CharacterCardInfo = styled.div`
   border-radius: 0 7px 10px 7px;
   @media (max-width: 400px) {
     font-size: 14px;
+    padding-left: 0px;
   }
 `;
 
@@ -202,7 +204,9 @@ const AnimeDetailPage = () => {
             <Genre>{genre}</Genre>
           ))}
         </div>
-        <div style={{ margin: "10px" }}>Total Number of Episodes  : {animePage?.episodes}</div>
+        <div style={{ margin: "10px" }}>
+          Total Number of Episodes : {animePage?.episodes}
+        </div>
         <div style={{ margin: "10px" }}>
           Relations :
           {animePage?.relations?.edges?.map(
@@ -229,19 +233,23 @@ const AnimeDetailPage = () => {
       content = (
         <TabContent>
           {animePage?.characters?.edges?.map((character) => (
-            <CharacterCard>
-              <CharacterCardImage image={character?.node?.image?.large || ""} />
-              <CharacterCardInfo>
-                <p>
-                  Name:{" "}
-                  {`${character?.node?.name?.first || ""} ${
-                    character?.node?.name?.last || ""
-                  }`}
-                </p>
-                <p>Age: {character?.node?.age || "Unkown"}</p>
-                <p>Gender: {character?.node?.gender || "Unkown"}</p>
-              </CharacterCardInfo>
-            </CharacterCard>
+            <CharacterCardWrapper>
+              <CharacterCard>
+                <CharacterCardImage
+                  image={character?.node?.image?.large || ""}
+                />
+                <CharacterCardInfo>
+                  <p>
+                    Name:{" "}
+                    {`${character?.node?.name?.first || ""} ${
+                      character?.node?.name?.last || ""
+                    }`}
+                  </p>
+                  <p>Age: {character?.node?.age || "Unkown"}</p>
+                  <p>Gender: {character?.node?.gender || "Unkown"}</p>
+                </CharacterCardInfo>
+              </CharacterCard>
+            </CharacterCardWrapper>
           ))}
         </TabContent>
       );
